@@ -28,17 +28,22 @@ delay, and a ten-minute temperature-change cooldown.
 
 ```text
 .
-|-- backend-example/
+|-- backend/
 |   |-- models/
 |   |-- Dockerfile
 |   |-- main.py
 |   `-- requirements.txt
-|-- src/
-|-- Dockerfile
+|-- frontend/
+|   |-- src/
+|   |-- Dockerfile
+|   |-- nginx.conf
+|   |-- package.json
+|   `-- vite.config.js
+|-- scripts/
+|   |-- run-backend.ps1
+|   `-- run-dashboard.ps1
 |-- docker-compose.yml
-|-- nginx.conf
-|-- package.json
-`-- vite.config.js
+`-- docs/
 ```
 
 ## Run with Docker
@@ -79,19 +84,21 @@ Create the isolated Python environment and install backend dependencies:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r backend-example\requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 ```
 
 Install dashboard dependencies:
 
 ```powershell
+Set-Location frontend
 npm.cmd install
+Set-Location ..
 ```
 
 The trained model is already located at:
 
 ```text
-backend-example\models\classroom_person.onnx
+backend\models\classroom_person.onnx
 ```
 
 ## Run the system
@@ -101,7 +108,7 @@ The backend and dashboard must run in two separate PowerShell terminals.
 ### Terminal 1 — model backend
 
 ```powershell
-.\.venv\Scripts\python.exe -m uvicorn main:app --app-dir backend-example --host 127.0.0.1 --port 8000
+.\.venv\Scripts\python.exe -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
 Wait until the terminal displays:
@@ -114,6 +121,7 @@ Uvicorn running on http://127.0.0.1:8000
 ### Terminal 2 — dashboard
 
 ```powershell
+Set-Location frontend
 npm.cmd run dev -- --host 127.0.0.1
 ```
 
@@ -142,7 +150,7 @@ http://localhost:8000/health
 Uploaded videos are stored locally in:
 
 ```text
-backend-example\uploads
+backend\uploads
 ```
 
 No video is sent to a cloud service.
@@ -169,6 +177,7 @@ Then start the backend using the Terminal 1 command.
 Build the optimized frontend:
 
 ```powershell
+Set-Location frontend
 npm.cmd run build
 ```
 
@@ -188,7 +197,7 @@ Press `Ctrl+C` once in the backend terminal and once in the dashboard terminal.
 
 ## Configuration
 
-Frontend configuration is stored in `.env`:
+Frontend configuration is stored in `frontend\.env`:
 
 ```env
 VITE_USE_API=true
@@ -196,7 +205,7 @@ VITE_API_BASE_URL=http://localhost:8000
 VITE_API_POLL_MS=200
 ```
 
-Backend configuration examples are in `backend-example\.env.example`. Important
+Backend configuration examples are in `backend\.env.example`. Important
 options include:
 
 - `CAMERA_SOURCE`

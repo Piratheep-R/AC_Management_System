@@ -4,10 +4,9 @@ dist
 .github
 .venv
 .venv-*
-backend-example/__pycache__
-backend-example/uploads
+backend/__pycache__
+backend/uploads
 *.log
 .env
 .env.local
 docs
-

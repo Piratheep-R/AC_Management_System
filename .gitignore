@@ -1,8 +1,8 @@
 node_modules/
 .venv/
 .venv-*/
-backend-example/__pycache__/
-backend-example/uploads/
+backend/__pycache__/
+backend/uploads/
 dist/
 .env
 .env.local
@@ -12,3 +12,5 @@ dist/
 .pytest_cache/
 .idea/
 .vscode/
+frontend/node_modules/
+frontend/dist/

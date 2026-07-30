@@ -1,7 +1,7 @@
 services:
   backend:
     build:
-      context: ./backend-example
+      context: ./backend
     environment:
       CAMERA_SOURCE: ${CAMERA_SOURCE:-0}
       MODEL_PATH: /app/models/classroom_person.onnx
@@ -14,7 +14,7 @@ services:
 
   frontend:
     build:
-      context: .
+      context: ./frontend
       args:
         VITE_USE_API: "true"
         VITE_API_BASE_URL: http://localhost:8000
@@ -28,4 +28,3 @@ services:
 
 volumes:
   backend-uploads:
-
