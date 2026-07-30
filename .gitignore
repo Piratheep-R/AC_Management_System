@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+.venv-*/
+backend-example/__pycache__/
+backend-example/uploads/
+dist/
+.env
+.env.local
+.DS_Store
+*.log
+*.py[cod]
+.pytest_cache/
+.idea/
+.vscode/

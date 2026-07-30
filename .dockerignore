@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.github
+.venv
+.venv-*
+backend-example/__pycache__
+backend-example/uploads
+*.log
+.env
+.env.local
+docs
+
