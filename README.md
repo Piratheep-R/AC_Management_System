@@ -105,6 +105,18 @@ backend\models\classroom_person.onnx
 
 The backend and dashboard must run in two separate PowerShell terminals.
 
+### One-click Windows start
+
+Double-click:
+
+```text
+scripts\start-project.bat
+```
+
+The launcher starts the backend and frontend in separate command windows and
+opens `http://localhost:5173` automatically. Close both command windows to stop
+the project.
+
 ### Terminal 1 — model backend
 
 ```powershell
